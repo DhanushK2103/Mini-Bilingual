@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bilingual Feedback Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      font-size: 1em;
+    }
+
+    .lang-toggle {
+      text-align: right;
+    }
+
+    [dir="rtl"] {
+      direction: rtl;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="lang-toggle">
+      <button onclick="switchLang('en')">English</button>
+      <button onclick="switchLang('ar')">Arabic</button>
+    </div>
+
+    <form id="feedbackForm" action="submit.php" method="POST" onsubmit="return validateForm()">
+      <label id="labelName" for="name">Name</label>
+      <input type="text" id="name" name="name">
+
+      <label id="labelEmail" for="email">Email</label>
+      <input type="email" id="email" name="email">
+
+      <label id="labelCategory" for="category">Category</label>
+      <select id="category" name="category">
+        <option value="">-- Select --</option>
+        <option value="Suggestion">Suggestion</option>
+        <option value="Complaint">Complaint</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label id="labelMessage" for="message">Message</label>
+      <textarea id="message" name="message"></textarea>
+
+      <input type="hidden" name="lang" id="lang" value="en">
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        name: "Name",
+        email: "Email",
+        category: "Category",
+        message: "Message",
+        submit: "Submit",
+        select: "-- Select --",
+        suggestion: "Suggestion",
+        complaint: "Complaint",
+        other: "Other",
+      },
+      ar: {
+        name: "الاسم",
+        email: "البريد الإلكتروني",
+        category: "الفئة",
+        message: "الرسالة",
+        submit: "إرسال",
+        select: "-- اختر --",
+        suggestion: "اقتراح",
+        complaint: "شكوى",
+        other: "أخرى",
+      }
+    };
+
+    function switchLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.getElementById('labelName').textContent = translations[lang].name;
+      document.getElementById('labelEmail').textContent = translations[lang].email;
+      document.getElementById('labelCategory').textContent = translations[lang].category;
+      document.getElementById('labelMessage').textContent = translations[lang].message;
+      document.getElementById('submitBtn').textContent = translations[lang].submit;
+
+      // Dropdown values
+      const category = document.getElementById('category');
+      category.options[0].text = translations[lang].select;
+      category.options[1].text = translations[lang].suggestion;
+      category.options[2].text = translations[lang].complaint;
+      category.options[3].text = translations[lang].other;
+
+      document.getElementById('lang').value = lang;
+    }
+
+    function validateForm() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const category = document.getElementById("category").value;
+      const message = document.getElementById("message").value.trim();
+      const lang = document.getElementById("lang").value;
+
+      if (!name || !email || !category || !message) {
+        alert(lang === "ar" ? "يرجى ملء جميع الحقول." : "Please fill out all fields.");
+        return false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert(lang === "ar" ? "يرجى إدخال بريد إلكتروني صالح." : "Please enter a valid email.");
+        return false;
+      }
+
+      return true;
+    }
+
+    // Default to English on load
+    switchLang('en');
+  </script>
+</body>
+</html>
