@@ -1,4 +1,9 @@
-
+<?php
+if (!isset($_GET['name']) || !isset($_GET['category']) || !isset($_GET['lang'])) {
+    echo "<h3>Missing parameters. Please submit the form first.</h3>";
+    exit();
+}
+?>
 <?php
 // Get values from URL
 $name = $_GET['name'] ?? 'Guest';
