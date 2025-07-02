@@ -7,7 +7,7 @@ $pass = '';
 $charset = 'utf8mb4';
 
 // Create DSN
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset"
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
 // Options for PDO
 $options = [
