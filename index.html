@@ -39,7 +39,7 @@
   </style>
   <style>
   :root {
-    --primary: #0000cc;
+    --primary: #0029cc;
     --accent: #f0f0f0;
     --border: #ddd;
     --text: #141414;
@@ -52,7 +52,7 @@
 }
 
 .logo {
-  height: 60px; 
+  height: 60px; /* adjust as needed */
   width: auto;
   object-fit: contain;
 }
@@ -71,7 +71,7 @@
   .container {
     max-width: 600px;
     margin: auto;
-    background: rgb(255, 255, 255);
+    background: white;
     padding: 25px 30px;
     border-radius: var(--radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -161,14 +161,14 @@
 
 </head>
 <body>
-  <div class="logo-container">
-  <img src="Digitech Logo.jpg" alt="Site Logo" class="logo">
-</div>
   <div class="container">
     <div class="lang-toggle">
       <button onclick="switchLang('en')">English</button>
       <button onclick="switchLang('ar')">Arabic</button>
     </div>
+<div class="logo-container">
+  <img src="Digitech Logo.jpg" alt="Site Logo" class="logo">
+</div>
 
     <form id="feedbackForm" action="submit.php" method="POST" onsubmit="return validateForm()">
       <label id="labelName" for="name">Name</label>
